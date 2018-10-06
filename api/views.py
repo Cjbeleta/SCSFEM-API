@@ -25,4 +25,22 @@ def superadmin_list(request):
 @csrf_exempt
 def superadmin_detail(request, pk):
     try:
-        
+        superadmin = Superadmin.objects.get(pk=pk)
+    except Superadmin.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = SuperadminSerializer(superadmin)
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = SuperadminSerializer(superadmin, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data)
+        return JsonResponse(serializer.errors, status=404)
+
+    elif request.method == 'DELETE':
+        superadmin.delete()
+        return HttpResponse(status=204)
