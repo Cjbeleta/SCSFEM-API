@@ -61,3 +61,13 @@ class BorrowerSerializer(serializers.ModelSerializer):
     #     instance.email = validated_data.get('email', instance.email)
     #     instance.save()
     #     return instance
+
+class FacilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Facility
+        fields = ('id', 'name', 'status', 'date_added','borrower_id')
+
+class EquipmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipment
+        fields = ('id', 'name', 'status', 'date_added', 'borrower_id')
