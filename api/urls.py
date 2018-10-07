@@ -3,16 +3,16 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from api import views
 
 urlpatterns = [
-    path('api/superadmin/', views.superadmin_list),
-    path('api/superadmin/<int:pk>/', views.superadmin_detail),
-    path('api/subadmin/', views.subadmin_list),
-    path('api/subadmin/<int:pk>/', views.subadmin_detail),
-    path('api/borrower/', views.borrower_list),
-    path('api/borrower/<int:pk>/', views.borrower_detail),
-    path('api/facility/', views.facility_list),
-    path('api/facility/<int:pk>/', views.facility_detail),
-    path('api/equipment/', views.equipment_list),
-    path('api/equipment/<int:pk>/', views.equipment_detail)
+    path('api/superadmin/', views.SuperadminList.as_view()),
+    path('api/superadmin/<int:pk>/', views.SuperadminDetail.as_view()),
+    path('api/subadmin/', views.SubadminList.as_view()),
+    path('api/subadmin/<int:pk>/', views.SubadminDetail.as_view()),
+    path('api/borrower/', views.BorrowerList.as_view()),
+    path('api/borrower/<int:pk>/', views.BorrowerDetail.as_view()),
+    path('api/facility/', views.FacilityList.as_view()),
+    path('api/facility/<int:pk>/', views.FacilityDetail.as_view()),
+    path('api/equipment/', views.EquipmentList.as_view()),
+    path('api/equipment/<int:pk>/', views.EquipmentDetail.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
