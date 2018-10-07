@@ -24,7 +24,7 @@ class SuperadminSerializer(serializers.ModelSerializer):
 
     # END OF SAMPLE
 
-class SubadminSerializer(serializers.Serializer):
+class SubadminSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subadmin
         fields = ('id', 'name', 'email', 'token_id')
@@ -43,7 +43,7 @@ class SubadminSerializer(serializers.Serializer):
     #     instance.save()
     #     return instance
 
-class BorrowerSerializer(serializers.Serializer):
+class BorrowerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Borrower
         fields = ('id', 'name', 'email', 'token_id')
