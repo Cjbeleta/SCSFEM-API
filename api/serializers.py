@@ -70,4 +70,4 @@ class FacilitySerializer(serializers.ModelSerializer):
 class EquipmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipment
-        fields = ('id', 'name', 'status', 'date_added', 'borrower_id')
+        fields = ('id', 'name', 'status', 'quantity', 'date_added', 'borrower_id')
