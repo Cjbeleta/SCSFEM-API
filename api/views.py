@@ -36,8 +36,14 @@ class BorrowerDetail(generics.RetrieveUpdateDestroyAPIView):
 # FACILITY
 
 class FacilityList(generics.ListCreateAPIView):
-    queryset = Facility.objects.all()
     serializer_class = FacilitySerializer
+
+    def get_queryset(self):
+        queryset = Facility.objects.all()
+        status = self.request.query_params.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        return queryset
 
 
 class FacilityDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -47,8 +53,14 @@ class FacilityDetail(generics.RetrieveUpdateDestroyAPIView):
 # EQUIPMENT
 
 class EquipmentList(generics.ListCreateAPIView):
-    queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
+
+    def get_queryset(self):
+        queryset = Equipment.objects.all()
+        status = self.request.query_params.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        return queryset
 
 
 class EquipmentDetail(generics.RetrieveUpdateDestroyAPIView):
