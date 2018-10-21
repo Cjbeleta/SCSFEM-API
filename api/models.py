@@ -3,12 +3,12 @@ from django.db import models
 # Create your models here.
 
 class Token(models.Model):
-    token = models.CharField(max_length=100)
+    token = models.CharField(max_length=2000)
     ttl = models.IntegerField()
     date_added = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return "{0} - {1} - {2}".format(self.token, self.ttl)
+        return "{0} - {1}".format(self.token, self.ttl)
 
 class Superadmin(models.Model):
     name = models.CharField(max_length=70)

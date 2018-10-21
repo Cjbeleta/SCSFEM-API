@@ -1,12 +1,24 @@
 from rest_framework import generics
-from api.models import Superadmin, Subadmin, Borrower, Facility, Equipment
-from api.serializers import SuperadminSerializer, SubadminSerializer, BorrowerSerializer, FacilitySerializer, EquipmentSerializer
+from api.models import Superadmin, Subadmin, Borrower, Facility, Equipment, Token
+from api.serializers import TokenSerializer, SuperadminSerializer, SubadminSerializer, BorrowerSerializer, FacilitySerializer, EquipmentSerializer
+
+# TOKEN
+
+class TokenList(generics.ListCreateAPIView):
+    queryset = Token.objects.all()
+    serializer_class = TokenSerializer
 
 # SUPERADMIN
 
 class SuperadminList(generics.ListCreateAPIView):
-    queryset = Superadmin.objects.all()
     serializer_class = SuperadminSerializer
+
+    def get_queryset(self):
+        queryset = Superadmin.objects.all()
+        email = self.request.query_params.get('email', None)
+        if email is not None:
+            queryset = queryset.filter(email=email)
+        return queryset
 
 class SuperadminDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Superadmin.objects.all()
@@ -15,8 +27,14 @@ class SuperadminDetail(generics.RetrieveUpdateDestroyAPIView):
 # SUBADMIN
 
 class SubadminList(generics.ListCreateAPIView):
-    queryset = Subadmin.objects.all()
     serializer_class = SubadminSerializer
+
+    def get_queryset(self):
+        queryset = Subadmin.objects.all()
+        email = self.request.query_params.get('email', None)
+        if email is not None:
+            queryset = queryset.filter(email=email)
+        return queryset
 
 class SubadminDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Subadmin.objects.all()
@@ -25,8 +43,14 @@ class SubadminDetail(generics.RetrieveUpdateDestroyAPIView):
 # BORROWER
 
 class BorrowerList(generics.ListCreateAPIView):
-    queryset = Borrower.objects.all()
     serializer_class = BorrowerSerializer
+
+    def get_queryset(self):
+        queryset = Borrower.objects.all()
+        email = self.request.query_params.get('email', None)
+        if email is not None:
+            queryset = queryset.filter(email=email)
+        return queryset
 
 
 class BorrowerDetail(generics.RetrieveUpdateDestroyAPIView):
