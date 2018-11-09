@@ -1,12 +1,28 @@
 from rest_framework import generics
-from api.models import Superadmin, Subadmin, Borrower, Facility, Equipment, Token
-from api.serializers import TokenSerializer, SuperadminSerializer, SubadminSerializer, BorrowerSerializer, FacilitySerializer, EquipmentSerializer
+from api.models import User, Superadmin, Subadmin, Borrower, Facility, Equipment, Token, FacilityReservation, EquipmentReservation
+from api.serializers import UserSerializer, TokenSerializer, SuperadminSerializer, SubadminSerializer, BorrowerSerializer, FacilitySerializer, EquipmentSerializer, FacilityReservationSerializer, EquipmentReservationSerializer
 
 # TOKEN
 
 class TokenList(generics.ListCreateAPIView):
     queryset = Token.objects.all()
     serializer_class = TokenSerializer
+
+# USER
+
+class UserList(generics.ListCreateAPIView):
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.all()
+        email = self.request.query_params.get('email', None)
+        if email is not None:
+            queryset = queryset.filter(email=email)
+        return queryset
+
+class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 # SUPERADMIN
 
@@ -52,7 +68,6 @@ class BorrowerList(generics.ListCreateAPIView):
             queryset = queryset.filter(email=email)
         return queryset
 
-
 class BorrowerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Borrower.objects.all()
     serializer_class = BorrowerSerializer
@@ -68,7 +83,6 @@ class FacilityList(generics.ListCreateAPIView):
         if status is not None:
             queryset = queryset.filter(status=status)
         return queryset
-
 
 class FacilityDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Facility.objects.all()
@@ -86,7 +100,40 @@ class EquipmentList(generics.ListCreateAPIView):
             queryset = queryset.filter(status=status)
         return queryset
 
-
 class EquipmentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
+
+
+#FACILITY_RESERVATION
+
+class FacilityReservationList(generics.ListCreateAPIView):
+    serializer_class = FacilityReservationSerializer
+
+    def get_queryset(self):
+        queryset = FacilityReservation.objects.all()
+        status = self.request.query_params.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        return queryset
+
+class FacilityReservationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FacilityReservation.objects.all()
+    serializer_class = FacilityReservationSerializer
+
+
+#EQUIPMENT_RESERVATION
+
+class EquipmentReservationList(generics.ListCreateAPIView):
+    serializer_class = EquipmentReservationSerializer
+
+    def get_queryset(self):
+        queryset = EquipmentReservation.objects.all()
+        status = self.request.query_params.get('status', None)
+        if status is not None:
+            queryset = queryset.filter(status=status)
+        return queryset
+
+class EquipmentReservationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = EquipmentReservation.objects.all()
+    serializer_class = EquipmentReservationSerializer
