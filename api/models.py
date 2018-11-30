@@ -49,6 +49,8 @@ class Borrower(models.Model):
 
 class Facility(models.Model):
     name = models.CharField(max_length=70)
+    description = models.TextField(default='None')
+    image = models.TextField(default='https://images.unsplash.com/photo-1522165078649-823cf4dbaf46?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=756f069c98c96a701453b1e27630e961&auto=format&fit=crop&w=750&q=80')
     date_added = models.DateField(auto_now_add=True)
     status = models.IntegerField()
     borrower_id = models.ForeignKey(Borrower, null=True, on_delete=models.CASCADE)
@@ -58,6 +60,8 @@ class Facility(models.Model):
 
 class Equipment(models.Model):
     name = models.CharField(max_length=70)
+    description = models.TextField(default='None')
+    image = models.TextField(default='https://images.unsplash.com/photo-1531988042231-d39a9cc12a9a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a562d48d64fd49e7cd0419f70806d696&auto=format&fit=crop&w=750&q=80')
     date_added = models.DateField(auto_now_add=True)
     status = models.IntegerField()
     quantity = models.IntegerField(default=1)
@@ -66,25 +70,14 @@ class Equipment(models.Model):
     def __str__(self):
         return "{0} - {1} - {2}".format(self.name, self.status, self.quantity, self.borrower_id)
 
-class FacilityReservation(models.Model):
+class Reservation(models.Model):
     borrower_id = models.ForeignKey(Borrower, null=False, on_delete=models.CASCADE)
-    facility_id = models.ForeignKey(Facility, null=False, on_delete=models.CASCADE)
+    item_id = models.ForeignKey(Facility, null=False, on_delete=models.CASCADE)
+    reservation_type = models.IntegerField()
     date_application = models.DateField(auto_now_add=True)
     date_reservation_start = models.DateField()
     date_reservation_end = models.DateField()
     status = models.IntegerField(default=0)
 
     def __str__(self):
-        return "{0} - {1} - {2} - {3}".format(self.borrower_id, self.facility_id, self.date_application, self.status)
-
-class EquipmentReservation(models.Model):
-    borrower_id = models.ForeignKey(Borrower, null=False, on_delete=models.CASCADE)
-    equipment_id = models.ForeignKey(Equipment, null=False, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    date_application = models.DateField(auto_now_add=True)
-    date_reservation_start = models.DateField()
-    date_reservation_end = models.DateField()
-    status = models.IntegerField(default=0)
-
-    def __str__(self):
-        return "{0} - {1} - {2} - {3} - {4}".format(self.borrower_id, self.equipment_id, self.date_application, self.quantity, self.status)
+        return "{0} - {1} - {2} - {3}".format(self.borrower_id, self.item_id, self.date_application, self.status)

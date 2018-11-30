@@ -1,4 +1,4 @@
-from .models import User, Superadmin, Subadmin, Borrower, Facility, Equipment,Token, FacilityReservation, EquipmentReservation
+from .models import User, Superadmin, Subadmin, Borrower, Facility, Equipment,Token, Reservation
 from rest_framework import serializers
 
 class TokenSerializer(serializers.ModelSerializer):
@@ -29,20 +29,14 @@ class BorrowerSerializer(serializers.ModelSerializer):
 class FacilitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Facility
-        fields = ('id', 'name', 'status', 'date_added','borrower_id')
+        fields = ('id', 'name', 'description', 'image', 'status', 'date_added','borrower_id')
 
 class EquipmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipment
-        fields = ('id', 'name', 'status', 'quantity', 'date_added', 'borrower_id')
+        fields = ('id', 'name', 'description', 'image', 'status', 'quantity', 'date_added', 'borrower_id')
 
-class FacilityReservationSerializer(serializers.ModelSerializer):
+class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FacilityReservation
-        fields = ('id', 'borrower_id', 'facility_id', 'date_application', 'date_reservation_start', 'date_reservation_end', 'status')
-
-class EquipmentReservationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EquipmentReservation
-        fields = ('id', 'borrower_id', 'equipment_id', 'quantity', 'date_application', 'date_reservation_start', 'date_reservation_end', 'status')
-
+        model = Reservation
+        fields = ('id', 'borrower_id', 'item_id', 'reservation_type', 'date_application', 'date_reservation_start', 'date_reservation_end', 'status')
