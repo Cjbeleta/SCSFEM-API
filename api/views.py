@@ -105,7 +105,7 @@ class EquipmentDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EquipmentSerializer
 
 
-#RESERVATION
+# RESERVATION
 
 class ReservationList(generics.ListCreateAPIView):
     serializer_class = ReservationSerializer
@@ -115,6 +115,12 @@ class ReservationList(generics.ListCreateAPIView):
         status = self.request.query_params.get('status', None)
         if status is not None:
             queryset = queryset.filter(status=status)
+        user = self.request.query_params.get('user', None)
+        if user is not None:
+            queryset = queryset.filter(borrower_id=user)
+        rtype = self.request.query_params.get('type', None)
+        if rtype is not None:
+            queryset = queryet.filter(reserve_type=rtype)
         return queryset
 
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):

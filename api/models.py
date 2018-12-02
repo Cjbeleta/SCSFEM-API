@@ -73,10 +73,16 @@ class Equipment(models.Model):
 class Reservation(models.Model):
     borrower_id = models.ForeignKey(Borrower, null=False, on_delete=models.CASCADE)
     item_id = models.ForeignKey(Facility, null=False, on_delete=models.CASCADE)
-    reservation_type = models.IntegerField()
+    reserve_type = models.CharField(max_length=20, default='none')
+    eventname = models.TextField(default=' ')
+    quantity = models.IntegerField(default=0)
     date_application = models.DateField(auto_now_add=True)
-    date_reservation_start = models.DateField()
-    date_reservation_end = models.DateField()
+    year = models.IntegerField(default=2018)
+    month = models.IntegerField(default=0)
+    start_day = models.IntegerField(default=0)
+    end_day = models.IntegerField(default=0)
+    start_time = models.IntegerField(default=0)
+    end_time = models.IntegerField(default=0)
     status = models.IntegerField(default=0)
 
     def __str__(self):

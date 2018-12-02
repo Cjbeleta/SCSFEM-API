@@ -39,4 +39,4 @@ class EquipmentSerializer(serializers.ModelSerializer):
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
-        fields = ('id', 'borrower_id', 'item_id', 'reservation_type', 'date_application', 'date_reservation_start', 'date_reservation_end', 'status')
+        fields = ('id', 'borrower_id', 'item_id', 'reserve_type', 'eventname', 'quantity', 'date_application', 'year', 'month', 'start_day', 'end_day', 'start_time', 'end_time', 'status')
