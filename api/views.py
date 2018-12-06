@@ -121,6 +121,9 @@ class ReservationList(generics.ListCreateAPIView):
         rtype = self.request.query_params.get('type', None)
         if rtype is not None:
             queryset = queryet.filter(reserve_type=rtype)
+        month = self.request.query_params.get('month', None)
+        if month is not None:
+            queryset = queryset.filter(month=month)
         return queryset
 
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):

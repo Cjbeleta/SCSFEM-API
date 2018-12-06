@@ -83,6 +83,7 @@ class Reservation(models.Model):
     end_day = models.IntegerField(default=0)
     start_time = models.IntegerField(default=0)
     end_time = models.IntegerField(default=0)
+    remarks = models.TextField(default='none')
     status = models.IntegerField(default=0)
 
     def __str__(self):

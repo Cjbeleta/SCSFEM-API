@@ -9,7 +9,7 @@ class TokenSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'name', 'email', 'usertype',)
+        fields = ('id', 'name', 'date_added' ,'email', 'usertype',)
 
 class SuperadminSerializer(serializers.ModelSerializer):
     class Meta:
@@ -39,4 +39,4 @@ class EquipmentSerializer(serializers.ModelSerializer):
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
-        fields = ('id', 'borrower_id', 'item_id', 'reserve_type', 'eventname', 'quantity', 'date_application', 'year', 'month', 'start_day', 'end_day', 'start_time', 'end_time', 'status')
+        fields = ('id', 'borrower_id', 'item_id', 'reserve_type', 'eventname', 'quantity', 'date_application', 'year', 'month', 'start_day', 'end_day', 'start_time', 'end_time', 'remarks', 'status')
