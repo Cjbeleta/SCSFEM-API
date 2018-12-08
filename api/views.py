@@ -1,6 +1,6 @@
 from rest_framework import generics
-from api.models import User, Superadmin, Subadmin, Borrower, Facility, Equipment, Token, Reservation
-from api.serializers import UserSerializer, TokenSerializer, SuperadminSerializer, SubadminSerializer, BorrowerSerializer, FacilitySerializer, EquipmentSerializer, ReservationSerializer
+from api.models import User, Superadmin, Subadmin, Borrower, Facility, Equipment, Token, Reservation, Schedule
+from api.serializers import UserSerializer, TokenSerializer, SuperadminSerializer, SubadminSerializer, BorrowerSerializer, FacilitySerializer, EquipmentSerializer, ReservationSerializer, ScheduleSerializer
 
 # TOKEN
 
@@ -129,3 +129,31 @@ class ReservationList(generics.ListCreateAPIView):
 class ReservationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+
+# SCHEDULE
+
+class ScheduleList(generics.ListCreateAPIView):
+    serializer_class = ScheduleSerializer
+
+    def get_queryset(self):
+        queryset = Schedule.objects.all()
+        item_type = self.request.query_params.get('item_type', None)
+        if item_type is not None:
+            queryset = queryset.filter(item_type=item_type)
+        item_id = self.request.query_params.get('item_id', None)
+        if item_id is not None:
+            queryset = queryset.filter(item_id=item_id)
+        year = self.request.query_params.get('year', None)
+        if year is not None:
+            queryset = queryset.filter(year=year)
+        month = self.request.query_params.get('month', None)
+        if month is not None:
+            queryset = queryset.filter(month=month)
+        day = self.request.query_params.get('day', None)
+        if day is not None:
+            queryset = queryset.filter(day=day)
+        return queryset
+
+class ScheduleDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Reservation.objects.all()
+    serializer_class = ScheduleSerializer

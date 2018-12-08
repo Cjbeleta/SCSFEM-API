@@ -88,3 +88,17 @@ class Reservation(models.Model):
 
     def __str__(self):
         return "{0} - {1} - {2} - {3}".format(self.borrower_id, self.item_id, self.date_application, self.status)
+
+
+class Schedule(models.Model):
+    info = models.CharField(max_length=200)
+    day = models.IntegerField(default=1)
+    month = models.IntegerField(default=1)
+    year = models.IntegerField(default=2018)
+    time_start = models.IntegerField(default=6)
+    time_end = models.IntegerField(default=21)
+    item_type = models.IntegerField(default=0)
+    item_id = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "{0} - {1} - {2} - {3}".format(self.info, self.day, self.month, self.year)
