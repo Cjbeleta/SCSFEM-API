@@ -102,3 +102,12 @@ class Schedule(models.Model):
 
     def __str__(self):
         return "{0} - {1} - {2} - {3}".format(self.info, self.day, self.month, self.year)
+
+class Logs(models.Model):
+    date = models.DateField(auto_now_add=True)
+    borrower = models.IntegerField(null=True)
+    admin = models.IntegerField(null=True)
+    message = models.TextField(default='None')
+
+    def __str__(self):
+        return "{0} - {1} - {2} - {3}".format(self.date, self.borrower, self.admin, self.message)

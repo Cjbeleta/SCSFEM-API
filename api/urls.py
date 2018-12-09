@@ -19,7 +19,9 @@ urlpatterns = [
     path('api/reservation/', views.ReservationList.as_view()),
     path('api/reservation/<int:pk>/', views.ReservationDetail.as_view()),
     path('api/schedule/', views.ScheduleList.as_view()),
-    path('api/schedule/<int:pk>', views.ScheduleDetail.as_view())
+    path('api/schedule/<int:pk>', views.ScheduleDetail.as_view()),
+    path('api/logs/', views.LogsList.as_view()),
+    path('api/logs/<int:pk>', views.LogsDetail.as_view())
     ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

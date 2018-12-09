@@ -1,4 +1,4 @@
-from .models import User, Superadmin, Subadmin, Borrower, Facility, Equipment,Token, Reservation, Schedule
+from .models import User, Superadmin, Subadmin, Borrower, Facility, Equipment,Token, Reservation, Schedule, Logs
 from rest_framework import serializers
 
 class TokenSerializer(serializers.ModelSerializer):
@@ -45,3 +45,8 @@ class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = ('id', 'info', 'day', 'month', 'year', 'time_start', 'time_end', 'item_type', 'item_id')
+
+class LogsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Logs
+        fields = ('id', 'date', 'borrower', 'admin', 'message') 

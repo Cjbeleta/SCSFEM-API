@@ -1,6 +1,6 @@
 from rest_framework import generics
-from api.models import User, Superadmin, Subadmin, Borrower, Facility, Equipment, Token, Reservation, Schedule
-from api.serializers import UserSerializer, TokenSerializer, SuperadminSerializer, SubadminSerializer, BorrowerSerializer, FacilitySerializer, EquipmentSerializer, ReservationSerializer, ScheduleSerializer
+from api.models import User, Superadmin, Subadmin, Borrower, Facility, Equipment, Token, Reservation, Schedule, Logs
+from api.serializers import UserSerializer, TokenSerializer, SuperadminSerializer, SubadminSerializer, BorrowerSerializer, FacilitySerializer, EquipmentSerializer, ReservationSerializer, ScheduleSerializer, LogsSerializer
 
 # TOKEN
 
@@ -157,3 +157,25 @@ class ScheduleList(generics.ListCreateAPIView):
 class ScheduleDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ScheduleSerializer
+
+# LOGS
+
+class LogsList(generics.ListCreateAPIView):
+    serializer_class = LogsSerializer
+
+    def get_queryset(self):
+        queryset = Logs.objects.all()
+        date = self.request.query_params.get('date', None)
+        if date is not None:
+            queryset = queryset.filter(date=date)
+        borrower = self.request.query_params.get('borrower', None)
+        if borrower is not None:
+            queryset = queryset.filter(borrower=borrower)
+        admin = self.request.query_params.get('admin', None)
+        if admin is not None:
+            queryset = queryset.filter(admin=admin)
+        return queryset
+
+class LogsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Logs.objects.all()
+    serializer_class = LogsSerializer
